@@ -1,8 +1,8 @@
 import express from 'express';
 import os from 'node:os';
+import config from './config';
 
 const server = express();
-const PORT: Number = 5000;
 
 server.set('view engine', 'ejs');
 
@@ -10,13 +10,14 @@ server.use(express.static('dist'));
 
 server.use('/', (req, res) => {
   res.render('index', {
-    content: 'EJS is <em>cool</em>',
+    initialContent: 'Loading...',
   });
 });
 
-server.listen(PORT, () => {
+server.listen(config.PORT, config.HOST, () => {
   console.info(
-    `Express server listening at http://loaclhost:${PORT}\nfree Memory is: ${parseInt(
+    `Express server listening at ${config.SERVER_URL}`,
+    `\nfree Memory is: ${parseInt(
       (os.freemem() / 1024 / 1024) as unknown as string
     )} mb`
   );
