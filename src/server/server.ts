@@ -2,6 +2,7 @@ import express from 'express';
 import os from 'node:os';
 import config from './config';
 import ApiRouter from './api-router';
+import serverRender from './render';
 
 const server = express();
 
@@ -11,9 +12,12 @@ server.use(express.static('dist'));
 
 server.use('/api', ApiRouter);
 
-server.get('/', (req, res) => {
+server.get('/', async (req, res) => {
+  // server render
+  const { initialMarkup, initialData } = await serverRender();
   res.render('index', {
-    initialContent: 'Loading...',
+    initialMarkup,
+    initialData,
   });
 });
 
