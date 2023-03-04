@@ -8,3 +8,11 @@ export const fetchContests = async () => {
   // return data
   return res.data.contests;
 };
+
+export const fetchOneContest = async (contestId) => {
+  const res = await axios.get(
+    `${API_SERVER_URL}/contests/${contestId}`
+  );
+
+  return res.data.contest;
+};

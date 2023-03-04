@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 // import { API_SERVER_URL } from '../public-config';
 
 import ContestPreview from './contest-preview';
+import Header from './header';
 // import { fetchContests } from '../api-client';
 
-const ContestList = ({ initialContests }) => {
+const ContestList = ({ initialContests, onContestClick }) => {
   const [contests, setContests] = useState(initialContests);
 
   useEffect(() => {
@@ -15,13 +16,20 @@ const ContestList = ({ initialContests }) => {
   }, []);
 
   return (
-    <div className="contests-list">
-      {contests.map((contest) => {
-        return (
-          <ContestPreview key={contest.id} contest={contest} />
-        );
-      })}
-    </div>
+    <>
+      <Header message="Header Message" />
+      <div className="contests-list">
+        {contests.map((contest) => {
+          return (
+            <ContestPreview
+              key={contest.id}
+              contest={contest}
+              onClick={onContestClick}
+            />
+          );
+        })}
+      </div>
+    </>
   );
 };
 
